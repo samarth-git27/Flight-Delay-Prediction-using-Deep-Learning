@@ -1,0 +1,4 @@
+df = df[['Reporting_Airline', 'Origin', 'Dest', 'Month',
+         'DayOfWeek', 'CRSDepTime', 'Distance', 'ArrDelay']]
+
+df.dropna(inplace=True)
