@@ -1,0 +1,20 @@
+from flask import Flask, request, jsonify
+import numpy as np
+from tensorflow.keras.models import load_model
+
+app = Flask(__name__)
+
+model = load_model('models/model.h5')
+
+@app.route('/')
+def home():
+    return "Flight Delay Prediction API"
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    data = request.json['features']
+    prediction = model.predict(np.array([data]))
+    return jsonify({'delay': int(prediction[0][0] > 0.5)})
+
+if __name__ == '__main__':
+    app.run(debug=True)
